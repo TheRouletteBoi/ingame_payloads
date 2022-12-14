@@ -19,20 +19,20 @@ typedef uint64_t sys_ppu_thread_t;
 
 struct opd_s
 {
-	uint32_t func;
-	uint32_t toc;
+    uint32_t func;
+    uint32_t toc;
 };
 
 uint32_t GetCurrentToc()
 {
-	uint32_t* entry_point = *reinterpret_cast<uint32_t**>(0x1001C); // ElfHeader->e_entry 
-	return entry_point[1];
+    uint32_t* entry_point = *reinterpret_cast<uint32_t**>(0x1001C); // ElfHeader->e_entry 
+    return entry_point[1];
 }
 
 #define MAKE_FN(addr, ret_type, name, args)	\
-	uint32_t name##Opd[2] = { addr, GetCurrentToc() }; \
-	using name##_t = ret_type(*)args;	\
-	name##_t name = (name##_t)name##Opd;
+    uint32_t name##Opd[2] = { addr, GetCurrentToc() }; \
+    using name##_t = ret_type(*)args;	\
+    name##_t name = (name##_t)name##Opd;
 
 MAKE_FN(0x014FDC5C, int, game_printf, (const char* format, ...));
 MAKE_FN(0x014FDCEC, int, game_snprintf, (char* s, size_t n, const char* format, ...));
@@ -42,49 +42,49 @@ MAKE_FN(0x01803FEC, void, game_sys_ppu_thread_exit, (uint64_t val));
 
 static inline int _sys_ppu_thread_exit(uint64_t val)
 {
-	system_call_1(41, val);
-	return_to_user_prog(int);
+    system_call_1(41, val);
+    return_to_user_prog(int);
 }
 
 int find_value_40()
 {
-	int var = 0;
-	for (int i = 0; i < 50; i++)
-	{
-		if (i < 40)
-		{
-			var = i;
-		}
-	}
+    int var = 0;
+    for (int i = 0; i < 50; i++)
+    {
+        if (i < 40)
+        {
+            var = i;
+        }
+    }
 
-	return var;
+    return var;
 }
 
 int addition(int left, int right)
 {
-	return left + right;
+    return left + right;
 }
 
 void thread_entry(uint64_t arg)
 {
-	game_printf("game thread says hello\n");
+    game_printf("game thread says hello\n");
 
-	int _30 = find_value_40();
-	int sum = addition(_30, 100);
+    int _30 = find_value_40();
+    int sum = addition(_30, 100);
 
-	game_printf("sum %d\n", sum);
+    game_printf("sum %d\n", sum);
 
 
-	game_sys_ppu_thread_exit(0);
+    game_sys_ppu_thread_exit(0);
 }
 
 
 extern "C" uint64_t PayloadEntry(uint64_t TOC, uint64_t payloadTOC)
 {
-	sys_ppu_thread_t id;
-	game_sys_ppu_thread_create(&id, thread_entry, 0, 0x8AE, 0x2000, 0, "thread_from_main");
+    sys_ppu_thread_t id;
+    game_sys_ppu_thread_create(&id, thread_entry, 0, 0x8AE, 0x2000, 0, "thread_from_main");
 
-	_sys_ppu_thread_exit(0);
+    _sys_ppu_thread_exit(0);
 
 
     return 0;
