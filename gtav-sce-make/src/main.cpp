@@ -81,7 +81,7 @@ void thread_entry(uint64_t arg)
 }
 
 
-int main()
+int main(int argc, char* argv[])
 {
     sys_ppu_thread_t id;
     game_sys_ppu_thread_create(&id, thread_entry, 0, 0x8AE, 0x2000, 0, "thread_from_main");
