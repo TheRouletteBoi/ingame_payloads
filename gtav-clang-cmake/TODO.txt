@@ -1,7 +1,0 @@
-needs to be 64bit with 32bit with address space.
-we might need to modify the toolchain??
-
-
-1. go to `toolchain/toolchain.cmake`
-2. change `set(triple powerpc64-eabi-freebsd-elfv1)` to `set(triple powerpc64-eabi-lv2-elfv1)`
-3. ERROR!!!!!
