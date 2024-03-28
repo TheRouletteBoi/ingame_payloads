@@ -6,8 +6,7 @@
 *
 */
 
-#include <stdint.h>
-#include "test.h"
+#include "types.h"
 
 #define	PPU_THREAD_CREATE_JOINABLE	0x0000000000000001
 #define	PPU_THREAD_CREATE_INTERRUPT	0x0000000000000002
