@@ -3,7 +3,8 @@ load and inject payloads into memory to execute your mod menu.
 
  
 # Requirements 
-* [PSDK3v2](https://github.com/PS3SDK-Misc/SDK-Mirror/releases/download/2022.01.29_052635/psdk3-cobra-windows.tar.gz) Put in `C:\` Drive (Only used for `make` command line)
+* [make - PSDK3v2](https://github.com/MiscPS3/MirrorSDK/releases/download/2023.09.17/psdk3-cobra-windows.tar.gz) Put in `C:\` Drive (Only used for `make` command line)
+* [CMake](https://cmake.org/download/)
 * Official Sony PS3 4.75+ SDK
 
 # Loading
