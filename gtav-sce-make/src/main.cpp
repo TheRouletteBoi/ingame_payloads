@@ -11,6 +11,8 @@
 #include <sys/ppu_thread.h>
 #include <sys/timer.h>
 #include <cell/cell_fs.h>
+#include <stdint.h>
+#include "test.h"
 
 #define	PPU_THREAD_CREATE_JOINABLE	0x0000000000000001
 #define	PPU_THREAD_CREATE_INTERRUPT	0x0000000000000002
@@ -31,6 +33,31 @@ uint32_t GetCurrentToc()
     return entry_point[1];
 }
 
+__attribute__((naked, noinline)) uint64_t syscall(int index, ...)
+{
+    asm
+    (
+        "mflr %r0;"
+        "std %r0, 0x10(%r1);"
+        "stdu %r1, -0x70(%r1);"
+        "mr %r0, %r3;"
+        "mr %r3, %r4;"
+        "mr %r4, %r5;"
+        "mr %r5, %r6;"
+        "mr %r6, %r7;"
+        "mr %r7, %r8;"
+        "mr %r8, %r9;"
+        "mr %r9, %r10;"
+        "mr %r10, %r11;"
+        "mr %r11, %r0;"
+        "sc;"
+        "addi %r1, %r1, 0x70;"
+        "ld %r0, 0x10(%r1);"
+        "mtlr %r0;"
+        "blr;"
+    );
+}
+
 #define MAKE_FN(addr, ret_type, name, args)	\
     uint32_t name##Opd[2] = { addr, GetCurrentToc() }; \
     using name##_t = ret_type(*)args;	\
@@ -42,24 +69,23 @@ MAKE_FN(0x01803DBC, int, game_sys_ppu_thread_create, (sys_ppu_thread_t* thread_i
 MAKE_FN(0x01803FEC, void, game_sys_ppu_thread_exit, (uint64_t val));
 
 
-static inline int _sys_ppu_thread_exit(uint64_t val)
+static inline uint64_t _sys_ppu_thread_exit(uint64_t val)
 {
-    system_call_1(41, val);
-    return_to_user_prog(int);
+    return syscall(41, val);
 }
 
 int find_value_40()
 {
-    int var = 0;
+    int val = 0;
     for (int i = 0; i < 50; i++)
     {
         if (i < 40)
         {
-            var = i;
+            val = i;
         }
     }
 
-    return var;
+    return val;
 }
 
 int addition(int left, int right)
@@ -71,8 +97,8 @@ void thread_entry(uint64_t arg)
 {
     game_printf("game thread says hello\n");
 
-    int _30 = find_value_40();
-    int sum = addition(_30, 100);
+    int val = find_value_40();
+    int sum = addition(val, 100);
 
     game_printf("sum %d\n", sum);
 
