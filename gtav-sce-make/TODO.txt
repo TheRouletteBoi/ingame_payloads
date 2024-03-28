@@ -1,4 +1,0 @@
-needs to be converted to .bin using 
-cell\host-win32\ppu\bin\ppu-lv2-objcopy.exe
-or
-cell\host-win32\sn\bin\ps3bin.exe
