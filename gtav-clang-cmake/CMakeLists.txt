@@ -12,12 +12,6 @@ add_link_options(
     -nostartfiles -nostdlib -nodefaultlibs -Wl,--gc-sections,-static,--undefined=PayloadEntry
 )
 
-include_directories(
-    "C:/usr/local/cell/target/ppu/include"
-    "C:/usr/local/cell/target/common/include"
-    "C:/usr/local/cell/host-win32/sn/ppu/include"
-)
-
 add_compile_options(
     -Os -g -fno-exceptions -fno-builtin -ffunction-sections -ffreestanding -nostdinc -Wno-int-to-pointer-cast
 )
