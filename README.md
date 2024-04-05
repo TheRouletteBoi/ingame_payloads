@@ -1,9 +1,12 @@
-# ingame_payloads
+# In Game Payloads For Playstation 3
 load and inject payloads into memory to execute your mod menu.
 
+# Project Structure
+- `gtav-clang-cmake/`: Uses Clang 14.0.0 with CMake for compiling
+- `gtav-sce-make/`: Uses Sony's SCE compiler with C++11 and make for compiling
  
 # Requirements 
-* [make - PSDK3v2](https://github.com/MiscPS3/MirrorSDK/releases/download/2023.09.17/psdk3-cobra-windows.tar.gz) Put in `C:\` Drive (Only used for `make` command line)
+* [make](https://github.com/MiscPS3/MirrorSDK/releases/download/2023.09.17/psdk3-cobra-windows.tar.gz) Put in `C:\` Drive (Only used for `make` command line)
 * [CMake](https://cmake.org/download/)
 * Official Sony PS3 4.75+ SDK
 
@@ -17,4 +20,4 @@ PROS
 * low memory footprint which means you can add way more features than a sprx could 
 
 CONS
-* you can't use built-in PS3 functions like cellMsgDialogOpen2 due to no availability of exports
+* Inability to use built-in PS3 functions like cellMsgDialogOpen2 due to the unavailability of exports
