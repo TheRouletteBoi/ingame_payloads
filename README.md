@@ -3,6 +3,7 @@ load and inject payloads into memory to execute your mod menu.
 
 # Project Structure
 - `gtav-clang-cmake/`: Uses Clang 14.0.0 with CMake for compiling
+- `gtav-g++-cmake/`: Uses GNU GCC 13.2.0 with CMake for compiling (requires linux)
 - `gtav-sce-make/`: Uses Sony's SCE compiler with C++11 and make for compiling
  
 # Requirements 
