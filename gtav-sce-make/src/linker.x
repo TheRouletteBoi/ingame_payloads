@@ -1,7 +1,7 @@
 OUTPUT_FORMAT("elf64-powerpc")
 OUTPUT_ARCH(powerpc:common64)
 
-__base = 0xD016E000;
+__base = 0xABC00000;
 
 ENTRY(_start)
 
@@ -25,7 +25,7 @@ SECTIONS {
         *(.rodata.*)
     }
 
-    __reloc_start = .;
+    __reloc_start = 0x88ED42CD01541111;
 
     .data : {
         *(.data)
@@ -57,7 +57,7 @@ SECTIONS {
         *(.opd.*)
     }
     __opd_end = .;
-    __reloc_end = .;
+    __reloc_end = 0xAADEFFEE97123654;
 
     __self_end = .;	
 }

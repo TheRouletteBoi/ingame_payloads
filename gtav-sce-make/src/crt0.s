@@ -6,10 +6,10 @@
     
 _start:
 
-    mflr	   %r0
-    std		   %r0,0x10(%r1)
-    stdu	   %r1,-0x90(%r1)
-    std		   %r2,0x28(%r1)
+    mflr       %r0
+    std        %r0,0x10(%r1)
+    stdu       %r1,-0x90(%r1)
+    std        %r2,0x28(%r1)
     std        %r31,0x70(%r1)
     std        %r30,0x78(%r1)
     mr         %r31,%r3
@@ -37,7 +37,7 @@ get_toc:
     lis       %r11, 0
     mr        %r11, %r11
     sldi      %r11, %r11, 32
-    oris      %r11, %r11, __toc@l
+    oris      %r11, %r11, 0xABC0
     mr        %r11, %r11
     bl        1f
 
@@ -45,14 +45,14 @@ get_toc:
     lis       %r12, 0
     mr        %r12, %r12
     sldi      %r12, %r12, 32
-    oris      %r12, %r12, __reloc_start@ha
-    ori       %r12, %r12, __reloc_start@l
+    oris      %r12, %r12, __toc@ha
+    ori       %r12, %r12, __toc@l
     subf      %r0, %r11, %r12
     lis       %r12, 0
     mr        %r12, %r12
     sldi      %r12, %r12, 32
-    oris      %r12, %r12, __reloc_end@ha
-    ori       %r12, %r12, __reloc_end@l
+    oris      %r12, %r12, 1b@ha
+    ori       %r12, %r12, 1b@l
     subf      %r12, %r11, %r12
     mflr      %r11
     subf      %r12, %r12, %r11
